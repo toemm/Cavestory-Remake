@@ -7,10 +7,11 @@ Systems:
 5. Bats smaller hitbox
 6. Caret align wallhit at bot wall (PistolCaretUpRIGHT, PistolCaretUpLEFT)
 7. Handle death animation of enemies (remove from items vector, clean up properly)
+8. Create sound strings like "pistolShoot" instead of using the standard item description
 
 Gameplay/Design:
 
-1. Background image for levels
+1. 3d Background image for levels
 
 
 

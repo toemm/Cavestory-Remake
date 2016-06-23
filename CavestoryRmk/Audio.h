@@ -19,12 +19,15 @@ public:
 	void stopSound(std::string name);
 
 	void playMusic(std::string name, int nr);
+	void pauseMusic();
 	void stopMusic(std::string name);
+
+	bool isPaused;
 
 
 private:
 	std::map<std::string, Mix_Chunk *> _soundArchive;
-	std::map<std::string, Mix_Chunk *> _musicArchive;
+	std::map<std::string, Mix_Music *> _musicArchive;
 
 };
 

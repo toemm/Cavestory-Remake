@@ -13,7 +13,7 @@
 #define LIMIT_FPS
 #undef LIMIT_FPS
 #define DEBUG
-#undef DEBUG
+//#undef DEBUG
 
 namespace FPS {
 	const int FPS = 60;
@@ -41,6 +41,8 @@ void Game::gameLoop()
 	this->_player = Player(_graphics, _level.getPlayerSpawnPoint());
 	this->_hud = Hud(_graphics);
 
+	// Play music from the start
+	this->_audio.playMusic("maintheme", -1);
 
 	auto LAST_UPDATE_TIME = SDL_GetTicks();
 	this->_running = true;
@@ -75,7 +77,9 @@ void Game::input()
 	if (SDL_PollEvent(&this->_sdlevent)) {
 		switch (this->_sdlevent.type) {
 		case SDL_KEYDOWN:
-			this->_input.keyDownEvent(this->_sdlevent);
+			if (this->_sdlevent.key.repeat == 0) {
+				this->_input.keyDownEvent(this->_sdlevent);
+			}
 			//std::cout << "Pressed: " << SDL_GetKeyName(this->_sdlevent.key.keysym.sym) << std::endl;
 			break;
 
@@ -134,11 +138,20 @@ void Game::input()
 	if (this->_input.wasKeyPressed(SDL_SCANCODE_4) == true)		// Key 4 = Rocketlauncher
 		this->_player.changeWeapon("rocketlauncher");
 
-	if (this->_input.wasKeyPressed(SDL_SCANCODE_X) == true)		// Key x = firing
+	if (this->_input.wasKeyPressed(SDL_SCANCODE_X) == true)	{	// Key x = firing
 		this->_player.shootWeapon();
+		this->_audio.playSound(this->_player.getCurrentWeapon()->getItemDescription(), 0);
+	}
 
-
-
+	// Menu
+	if (this->_input.wasKeyPressed(SDL_SCANCODE_P) == true)	{	// Key P = Pause music/Resume music
+		if (this->_audio.isPaused == true) {
+			this->_audio.playMusic("maintheme", -1);
+		}
+		else {
+			this->_audio.pauseMusic();
+		}
+	}
 }
 
 void Game::draw()

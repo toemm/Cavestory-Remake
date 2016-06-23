@@ -12,7 +12,7 @@
 // Alternativ solution: Create an anonymous namespace which creates internal linkage
 // Or define it as static to remove external linkage
 static std::map<std::string, std::string> ItemDescriptions = {
-	{ "pistol", "Pistol" },
+	{ "pistol", "pistol" },
 	{ "save", "Savedisk" },
 	{ "healthpack", "Healthpack" },
 	{ "rifle", "Rifle" },
@@ -20,8 +20,8 @@ static std::map<std::string, std::string> ItemDescriptions = {
 };
 
 namespace bullet_physics {
-	const float xVelocity = 0.3f;
-	const float yVelocity = 0.3f;
+	const float xVelocity = 0.8f;		// 0.3
+	const float yVelocity = 0.8f;		// 0.3
 	const float maxDistance = 80.0f;
 
 }

@@ -11,6 +11,7 @@
 #include "Graphics.h"
 #include "Input.h"
 #include "Camera.h"
+#include "Audio.h"
 
 #pragma once
 
@@ -29,6 +30,7 @@ private:
 
 	void drawDebugLines();
 
+	Audio _audio;
 	SDL_Event _sdlevent;
 	Input _input;
 	Player _player;
