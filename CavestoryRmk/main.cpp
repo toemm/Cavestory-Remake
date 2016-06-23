@@ -1,5 +1,6 @@
 /* main.cpp
  * The entry point of the program
+ * BACKUP 23-06-2016
  */
 
 #include <SDL.h>
