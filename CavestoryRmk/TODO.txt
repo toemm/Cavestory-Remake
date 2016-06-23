@@ -1,0 +1,27 @@
+Systems:
+
+1. When creating Item objects in Level.cpp loadmap(), get the WeaponProperty object for the Weapon via a global map
+2. (DONE) In level.cpp when parsing Item, fix the constructors so that they only take what is necessary and add rest in Pistol.cpp, Healthpack.cpp
+3. Ressources cleanup, check if every new is followed by delete (Level class dtor..)
+4. Bullet CTOR remove hitbox offset (hardcore in update function instead)
+5. Bats smaller hitbox
+6. Caret align wallhit at bot wall (PistolCaretUpRIGHT, PistolCaretUpLEFT)
+7. Handle death animation of enemies (remove from items vector, clean up properly)
+
+Gameplay/Design:
+
+1. Background image for levels
+
+
+
+
+
+
+
+
+
+WHAT TO DO BETTER:
+
+- Animated Sprite -> Weapon -> Bullet(AnimatedSprite), Caret(AnimatedSprite)
+->  one Weapon class 
+
