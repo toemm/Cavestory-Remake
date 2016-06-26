@@ -39,8 +39,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)..\External\SDL2_mixer-2.0.1\include;$(ProjectDir)..\External\SDL2-2.0.4\include;$(ProjectDir)..\External\SDL2_ttf-2.0.14\include;$(ProjectDir)..\External\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\External\SDL2_ttf-2.0.14\lib\x86;$(ProjectDir)..\External\SDL2_image-2.0.1\lib\x86;$(ProjectDir)..\External\SDL2_mixer-2.0.1\lib\x86;$(ProjectDir)..\External\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\External\Libs\SDL2_mixer-2.0.1\include;$(ProjectDir)..\External\Libs\SDL2-2.0.4\include;$(ProjectDir)..\External\Libs\SDL2_ttf-2.0.14\include;$(ProjectDir)..\External\Libs\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\External\Libs\SDL2_ttf-2.0.14\lib\x86;$(ProjectDir)..\External\Libs\SDL2_image-2.0.1\lib\x86;$(ProjectDir)..\External\Libs\SDL2_mixer-2.0.1\lib\x86;$(ProjectDir)..\External\Libs\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -53,6 +55,12 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d  "$(ProjectDir)..\External\DLLs\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copies the DLLs from external libs into output folder for every build. This way everything regarding external libs can be kept in SC.</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
