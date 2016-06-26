@@ -9,7 +9,7 @@ public:
 	Healthpack();
 	Healthpack(int ID, std::string itemDescription, Rectangle collRect);
 
-	virtual void touchPlayer(Player *player, std::vector<std::shared_ptr<Item>>& items) override {}
+	virtual void touchPlayer(Player *player, std::vector<std::shared_ptr<Item>>& items) override;
 
 
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL_mixer.h>
+#include "globals.h"
 
 #include <string>
 #include <map>
@@ -15,19 +16,19 @@ public:
 	void initSounds();
 	void initMusic();
 
-	void playSound(std::string name, int nr);
-	void stopSound(std::string name);
+	static void playSound(std::string name, int nr);
+	static void stopSound(std::string name);
 
-	void playMusic(std::string name, int nr);
-	void pauseMusic();
-	void stopMusic(std::string name);
+	static void playMusic(std::string name, int nr);
+	static void pauseMusic();
+	static void stopMusic(std::string name);
 
-	bool isPaused;
+	static bool isPaused;
 
 
 private:
-	std::map<std::string, Mix_Chunk *> _soundArchive;
-	std::map<std::string, Mix_Music *> _musicArchive;
+	static std::map<std::string, Mix_Chunk *> _soundArchive;
+	static std::map<std::string, Mix_Music *> _musicArchive;
 
 };
 

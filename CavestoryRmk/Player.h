@@ -69,6 +69,7 @@ public:
 
 	const inline int getMaxHealth() const { return this->_maxHealth; }
 	const inline int getCurrentHealth() const { return this->_currentHealth; }
+	const inline bool isPlayerDead() const { return this->_playerDead; }
 	
 	void gainHealth(int amount);
 
@@ -99,6 +100,7 @@ private:
 
 	int _maxHealth;
 	int _currentHealth;
+	bool _playerDead;
 
 	// Items
 	Weapon *_testWeapon;

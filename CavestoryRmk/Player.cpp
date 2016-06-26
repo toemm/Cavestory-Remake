@@ -15,7 +15,7 @@ Player::Player(Graphics& graphics, Vector2 spawnPoint) :
 AnimatedSprite(graphics, "content/sprites/MyChar.png", 0, 0, 16, 16, spawnPoint.x, spawnPoint.y, 100),
 _dx(0),
 _dy(0),
-_facing(RIGHT),
+_facing(LEFT),
 _grounded(false),
 _allowJumping(true),
 _onSlope(false),
@@ -25,10 +25,11 @@ _lookingUp(false),
 _maxHealth(3),
 _currentHealth(1),
 _currentWeaponHeld("none"),
-_isInvincible(false)
-
+_isInvincible(false),
+_playerDead(false)
 
 {
+	this->_currentAnimation = "IdleLeft";	// If the level is restarted, player starts with this animation so it doesn't NULL, maybe better solution?
 	this->setupAnimation();
 
 	// Instantiate default weapon 
@@ -61,7 +62,6 @@ void Player::update(float elapsedTime)
 
 
 	}
-
 
 
 	if (_currentWeaponHeld != "none") {
@@ -193,6 +193,9 @@ void Player::setupAnimation()
 	this->addAnimation(1, 6, 16, "LookDownRight", 16, 16, Vector2(0, 0));
 	this->addAnimation(1, 7, 0, "LookBackwardsLeft", 16, 16, Vector2(0, 0));
 	this->addAnimation(1, 7, 16, "LookBackwardsRight", 16, 16, Vector2(0, 0));
+
+	// Death 
+	this->addAnimation(1, 6, 28, "TombstoneIdle", 30, 28, Vector2(0, 0));
 }
 
 void Player::handleSlopeCollisions(std::vector<Slope>& others)
@@ -307,9 +310,9 @@ void Player::gainHealth(int amount)
 {
 	//printf("lose %d health, current health: %d\n", amount, _currentHealth);
 	this->_currentHealth += amount;
-	if (this->_currentHealth == 0)
-		this->_currentHealth = this->_maxHealth;
-
+	if (this->_currentHealth <= 0) {
+		this->_playerDead = true;
+	}
 
 }
 
