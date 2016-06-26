@@ -12,6 +12,7 @@
 #include "Input.h"
 #include "Camera.h"
 #include "Audio.h"
+#include "Text.h"
 
 #pragma once
 
@@ -29,6 +30,8 @@ private:
 	void update(int elapsedTime);
 
 	void drawDebugLines();
+
+	Text _text;
 
 	Audio _audio;
 	SDL_Event _sdlevent;

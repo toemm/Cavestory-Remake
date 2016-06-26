@@ -63,7 +63,6 @@ void Player::update(float elapsedTime)
 	}
 
 
-
 	if (_currentWeaponHeld != "none") {
 		if (this->_lookingUp == true) {
 			this->_arsenal[this->_currentWeaponHeld]->playAnimation(this->_facing == RIGHT ? "IdleAimUpRight" : "IdleAimUpLeft");
@@ -307,9 +306,6 @@ void Player::gainHealth(int amount)
 {
 	//printf("lose %d health, current health: %d\n", amount, _currentHealth);
 	this->_currentHealth += amount;
-	if (this->_currentHealth == 0)
-		this->_currentHealth = this->_maxHealth;
-
 
 }
 

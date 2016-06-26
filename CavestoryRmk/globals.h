@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SDL.h>
 #include <iostream>
 #include <map>
 #include <string>
@@ -48,6 +49,16 @@ namespace globals {
 namespace environment {
 	const float maxSlope = 2.0f;
 
+}
+
+namespace audio {
+	const int MUSIC_VOLUME = 7;
+	const int WEAPON_VOLUME = 5;
+}
+
+namespace text {
+	const int FONT_SIZE = 28;
+	const SDL_Color green = { 255, 165, 0};
 }
 
 namespace sides {

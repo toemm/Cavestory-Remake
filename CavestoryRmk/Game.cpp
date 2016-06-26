@@ -1,6 +1,7 @@
 #include <algorithm>
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include "Game.h"
 #include "Graphics.h"
 #include "Input.h"
@@ -9,6 +10,7 @@
 #include "Slope.h"
 #include "Item.h"
 #include "Camera.h"
+#include "Text.h"
 
 #define LIMIT_FPS
 #undef LIMIT_FPS
@@ -41,8 +43,12 @@ void Game::gameLoop()
 	this->_player = Player(_graphics, _level.getPlayerSpawnPoint());
 	this->_hud = Hud(_graphics);
 
+
+	this->_text = Text(this->_graphics, "TestText", globals::LEVEL_WIDTH / 2, globals::LEVEL_HEIGHT / 2,
+		"content/fonts/lazy.ttf", text::green);
+
 	// Play music from the start
-	this->_audio.playMusic("maintheme", -1);
+	Audio::playMusic("maintheme", -1);
 
 	auto LAST_UPDATE_TIME = SDL_GetTicks();
 	this->_running = true;
@@ -60,7 +66,6 @@ void Game::gameLoop()
 			SDL_Delay(FPS::MAX_FRAME_TIME - ELAPSED_TIME_MS);
 		}
 #else
-		//this->_graphics = graphics;
 		this->update(std::min(ELAPSED_TIME_MS, FPS::MAX_FRAME_TIME));
 #endif
 		LAST_UPDATE_TIME = CURRENT_TIME_MS;
@@ -140,16 +145,16 @@ void Game::input()
 
 	if (this->_input.wasKeyPressed(SDL_SCANCODE_X) == true)	{	// Key x = firing
 		this->_player.shootWeapon();
-		this->_audio.playSound(this->_player.getCurrentWeapon()->getItemDescription(), 0);
+		Audio::playSound(this->_player.getCurrentWeapon()->getItemDescription(), 0);
 	}
 
 	// Menu
 	if (this->_input.wasKeyPressed(SDL_SCANCODE_P) == true)	{	// Key P = Pause music/Resume music
-		if (this->_audio.isPaused == true) {
-			this->_audio.playMusic("maintheme", -1);
+		if (Audio::isPaused == true) {
+			Audio::playMusic("maintheme", -1);
 		}
 		else {
-			this->_audio.pauseMusic();
+			Audio::pauseMusic();
 		}
 	}
 }
@@ -160,6 +165,7 @@ void Game::draw()
 	this->_level.draw(this->_graphics);
 	this->_player.draw(this->_graphics);
 	this->_hud.draw(this->_graphics);
+	this->_text.draw(this->_graphics, this->_player.getX(), this->_player.getY());
 
 #ifdef DEBUG
 	this->drawDebugLines();
@@ -176,6 +182,7 @@ void Game::update(int elapsedTime)
 	this->_level.update(elapsedTime, this->_player);
 	this->_hud.update(elapsedTime, this->_player);
 	this->_camera.update(elapsedTime, this->_player);
+	this->_text.update();
 
 	// Check slopes
 	std::vector<Slope> otherSlopes = this->_level.checkSlopeCollisions(this->_player.getBoundingBox());
