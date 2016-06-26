@@ -56,7 +56,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d  "$(ProjectDir)..\External\DLLs\*.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d  "$(ProjectDir)..\External\DLLs\*.dll" "$(ProjectDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copies the DLLs from external libs into output folder for every build. This way everything regarding external libs can be kept in SC.</Message>
