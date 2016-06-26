@@ -43,9 +43,7 @@ void Game::gameLoop()
 	this->_player = Player(_graphics, _level.getPlayerSpawnPoint());
 	this->_hud = Hud(_graphics);
 
-
-	this->_text = Text(this->_graphics, "TestText", globals::LEVEL_WIDTH / 2, globals::LEVEL_HEIGHT / 2,
-		"content/fonts/lazy.ttf", text::green);
+	this->initText();
 
 	// Play music from the start
 	Audio::playMusic("maintheme", -1);
@@ -93,79 +91,96 @@ void Game::input()
 			//std::cout << "Released: " << SDL_GetKeyName(this->_sdlevent.key.keysym.sym) << std::endl;
 			break;
 
-		case SDL_QUIT:
-			return;
-
 		default:
 			break;
 		}
 	}
 
-	// System
-	if (this->_input.wasKeyPressed(SDL_SCANCODE_ESCAPE))
-		this->_running = false;
+	// Selective input if player is dead (restart (Y/N))
+	if (this->_player.isPlayerDead() == true) {
+		if (this->_input.isKeyHeld(SDL_SCANCODE_Z))
+			this->restart();
 
-	// Player animation
-	if (this->_input.isKeyHeld(SDL_SCANCODE_A))
-		this->_player.moveLeft();
+		if (this->_input.isKeyHeld(SDL_SCANCODE_N))
+			this->_running = false;
+	}
+	else {
+		// System
+		if (this->_input.wasKeyPressed(SDL_SCANCODE_ESCAPE))
+			this->_running = false;
+		if (this->_input.wasKeyPressed(SDL_SCANCODE_O))
+			this->restart();
 
-	if (this->_input.isKeyHeld(SDL_SCANCODE_D))
-		this->_player.moveRight();
+		// Player animation
+		if (this->_input.isKeyHeld(SDL_SCANCODE_A))
+			this->_player.moveLeft();
 
-	if (this->_input.wasKeyPressed(SDL_SCANCODE_SPACE) == true)
-		this->_player.jump();
+		if (this->_input.isKeyHeld(SDL_SCANCODE_D))
+			this->_player.moveRight();
 
-	if (this->_input.isKeyHeld(SDL_SCANCODE_W))
-		this->_player.lookUp();
+		if (this->_input.wasKeyPressed(SDL_SCANCODE_SPACE) == true)
+			this->_player.jump();
 
-	if (this->_input.isKeyHeld(SDL_SCANCODE_S) == true)
-		this->_player.lookDown();
+		if (this->_input.isKeyHeld(SDL_SCANCODE_W))
+			this->_player.lookUp();
 
-	if (this->_input.wasKeyReleased(SDL_SCANCODE_W) == true)
-		this->_player.stopLookingUp();
+		if (this->_input.isKeyHeld(SDL_SCANCODE_S) == true)
+			this->_player.lookDown();
 
-	if (this->_input.wasKeyReleased(SDL_SCANCODE_S) == true)
-		this->_player.stopLookingDown();
+		if (this->_input.wasKeyReleased(SDL_SCANCODE_W) == true)
+			this->_player.stopLookingUp();
 
-	if (!this->_input.isKeyHeld(SDL_SCANCODE_A) && !this->_input.isKeyHeld(SDL_SCANCODE_D))
-		this->_player.stopMoving();
+		if (this->_input.wasKeyReleased(SDL_SCANCODE_S) == true)
+			this->_player.stopLookingDown();
 
-	// Items (Weapons)
-	if (this->_input.wasKeyPressed(SDL_SCANCODE_1) == true)		// Key 1 = No Weapon
-		this->_player.changeWeapon("none");
+		if (!this->_input.isKeyHeld(SDL_SCANCODE_A) && !this->_input.isKeyHeld(SDL_SCANCODE_D))
+			this->_player.stopMoving();
 
-	if (this->_input.wasKeyPressed(SDL_SCANCODE_2) == true)		// Key 2 = Pistol
-		this->_player.changeWeapon("pistol");
+		// Items (Weapons)
+		if (this->_input.wasKeyPressed(SDL_SCANCODE_1) == true)		// Key 1 = No Weapon
+			this->_player.changeWeapon("none");
 
-	if (this->_input.wasKeyPressed(SDL_SCANCODE_3) == true)		// Key 3 = Rifle
-		this->_player.changeWeapon("rifle");
+		if (this->_input.wasKeyPressed(SDL_SCANCODE_2) == true)		// Key 2 = Pistol
+			this->_player.changeWeapon("pistol");
 
-	if (this->_input.wasKeyPressed(SDL_SCANCODE_4) == true)		// Key 4 = Rocketlauncher
-		this->_player.changeWeapon("rocketlauncher");
+		if (this->_input.wasKeyPressed(SDL_SCANCODE_3) == true)		// Key 3 = Rifle
+			this->_player.changeWeapon("rifle");
 
-	if (this->_input.wasKeyPressed(SDL_SCANCODE_X) == true)	{	// Key x = firing
-		this->_player.shootWeapon();
-		Audio::playSound(this->_player.getCurrentWeapon()->getItemDescription(), 0);
+		if (this->_input.wasKeyPressed(SDL_SCANCODE_4) == true)		// Key 4 = Rocketlauncher
+			this->_player.changeWeapon("rocketlauncher");
+
+		if (this->_input.wasKeyPressed(SDL_SCANCODE_X) == true)	{	// Key x = firing
+			this->_player.shootWeapon();
+			Audio::playSound(this->_player.getCurrentWeapon()->getItemDescription(), 0);
+		}
+
+		// Menu
+		if (this->_input.wasKeyPressed(SDL_SCANCODE_P) == true)	{	// Key P = Pause music/Resume music
+			if (Audio::isPaused == true) {
+				Audio::playMusic("maintheme", -1);
+			}
+			else {
+				Audio::pauseMusic();
+			}
+		}
+
 	}
 
-	// Menu
-	if (this->_input.wasKeyPressed(SDL_SCANCODE_P) == true)	{	// Key P = Pause music/Resume music
-		if (Audio::isPaused == true) {
-			Audio::playMusic("maintheme", -1);
-		}
-		else {
-			Audio::pauseMusic();
-		}
-	}
+
 }
 
 void Game::draw()
 {
+	// Handle player death by letting the player restart or close the game
+	if (this->_player.isPlayerDead() == true) {
+		this->_gameTexts["DeathRestart"].draw(this->_graphics, this->_player.getX(), this->_player.getY());
+	}
+
+
 	this->_graphics.clear();
 	this->_level.draw(this->_graphics);
 	this->_player.draw(this->_graphics);
 	this->_hud.draw(this->_graphics);
-	this->_text.draw(this->_graphics, this->_player.getX(), this->_player.getY());
 
 #ifdef DEBUG
 	this->drawDebugLines();
@@ -177,12 +192,18 @@ void Game::draw()
 
 void Game::update(int elapsedTime)
 {
+	// Check for player death
+	if (this->_player.isPlayerDead() == true) {
+		this->_player.playAnimation("TombstoneIdle");	// tombstone as death animation
+		this->_player.changeWeapon("none");				// so tombstone doesn't show weapon at its side
+	}
+
+
 	//std::cout << elapsedTime << std::endl;
 	this->_player.update(elapsedTime);			// update the frameIndex of the AnimSprite object
 	this->_level.update(elapsedTime, this->_player);
 	this->_hud.update(elapsedTime, this->_player);
 	this->_camera.update(elapsedTime, this->_player);
-	this->_text.update();
 
 	// Check slopes
 	std::vector<Slope> otherSlopes = this->_level.checkSlopeCollisions(this->_player.getBoundingBox());
@@ -225,7 +246,7 @@ void Game::update(int elapsedTime)
 	}
 
 	// Check bullet collisions
-	if (this->_player.getWeaponHeldString() != "none" && this->_player.getWeaponHeldString() != "rocketlauncher") {
+	if (this->_player.getWeaponHeldString() != "none" && this->_player.getWeaponHeldString() != "rocketlauncher") {		// rocketlauncher not implemented
 		if (this->_player.getCurrentWeapon()->getAmmunition()->getBoundingBox().isCollisionRect() == true) {			// safety measure, only check collision if the weapon is fired (otherwise rect is undef)
 
 			// Tile Collision
@@ -248,6 +269,48 @@ void Game::update(int elapsedTime)
 	}
 
 }
+
+void Game::restart()
+{
+	// Restart the level
+	// TODO: CLEANUP RESSOURCES CREATED IN THESE OBJECTS
+	this->_level = Level("bigmap1", this->_graphics);
+	this->_player = Player(this->_graphics, this->_level.getPlayerSpawnPoint());
+}
+
+void Game::initText()
+{
+	// Store text objects for the game object in a map for easier and cleaner access when the texts are needed
+	this->_gameTexts.insert({
+		"DeathRestart",
+		Text(this->_graphics, "You died. Restart? (Y/N)", Vector2(0, 0), 28, 0, 0, text::fontDir, text::green)
+	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Game::drawDebugLines()
 {

@@ -3,6 +3,7 @@
 #include <SDL_ttf.h>
 #include <SDL.h>
 #include <string>
+#include "globals.h"
 
 class Graphics;
 
@@ -11,6 +12,9 @@ struct TextData {
 	TTF_Font *font;
 	SDL_Color color;
 
+	// We store the Text Textures in a map of <TextData, SDL_Surface *> in the graphics object
+	// The map needs a weak ordering criterion that's provided here by operator<
+	// The order of the objects in the map doesn't matter really
 	bool operator< (const TextData& other) const {
 		return this->text < other.text;
 	}
@@ -21,7 +25,7 @@ class Text
 {
 public:
 	Text();
-	Text(Graphics& graphics, const std::string& text, int posX, int posY,
+	Text(Graphics& graphics, const std::string& text, Vector2 off, int fontSize, int posX, int posY,
 		const std::string& fontFilePath, SDL_Color col);
 	~Text();
 
@@ -35,6 +39,7 @@ public:
 private:
 	int _x, _y;
 
+	Vector2 _offset;
 	TextData _textdata;
 	SDL_Texture *_textTexture;
 	SDL_Rect _sourceRect;

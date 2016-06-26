@@ -57,8 +57,8 @@ namespace audio {
 }
 
 namespace text {
-	const int FONT_SIZE = 28;
-	const SDL_Color green = { 255, 165, 0};
+	const std::string fontDir = "content/fonts/Roboto-Black.ttf";
+	const SDL_Color green = { 0, 255, 0 };
 }
 
 namespace sides {

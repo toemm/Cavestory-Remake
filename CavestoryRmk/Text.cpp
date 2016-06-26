@@ -13,15 +13,16 @@ Text::~Text()
 }
 
 
-Text::Text(Graphics& graphics, const std::string& text, int posX, int posY,
+Text::Text(Graphics& graphics, const std::string& text, Vector2 off, int fontSize, int posX, int posY,
 	const std::string& fontFilePath, SDL_Color col) :
 	_x(posX),
-	_y(posY)
+	_y(posY),
+	_offset(off)
 
 {
 	this->_textdata = {
 		text,
-		graphics.loadFont(fontFilePath.c_str(), text::FONT_SIZE),
+		graphics.loadFont(fontFilePath.c_str(), fontSize),
 		col
 	};
 

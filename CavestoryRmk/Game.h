@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <map>
 
 #include "Player.h"
 #include "Level.h"
@@ -29,6 +30,13 @@ private:
 	void draw();
 	void update(int elapsedTime);
 
+	// Restart game, load first level
+	void restart();
+
+	// Initialiize text objects that are needed for the game object
+	void initText();
+
+	// Draw rectangles around sprites for debugging purposes
 	void drawDebugLines();
 
 	Text _text;
@@ -42,6 +50,7 @@ private:
 	Graphics _graphics;
 	Camera _camera;
 
+	std::map<std::string, Text> _gameTexts;
 
 	bool _running;
 };
