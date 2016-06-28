@@ -58,7 +58,7 @@ namespace audio {
 
 namespace text {
 	const std::string fontDir = "content/fonts/Roboto-Black.ttf";
-	const SDL_Color green = { 0, 255, 0 };
+	const SDL_Color green = { 255, 255, 255 };
 }
 
 namespace sides {
@@ -95,6 +95,8 @@ struct Vector2 {
 	static Vector2 zero() {
 		return Vector2();
 	}
+
+	~Vector2() {}
 };
 
 

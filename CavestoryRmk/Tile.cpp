@@ -7,12 +7,6 @@ Tile::Tile()
 {
 }
 
-
-Tile::~Tile()
-{
-}
-
-
 Tile::Tile(SDL_Texture *tileset, Vector2 size, Vector2 tilesetPosition, Vector2 position) :
 		_tileset(tileset),
 		_size(size),

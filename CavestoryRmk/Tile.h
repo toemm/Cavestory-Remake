@@ -14,7 +14,7 @@ public:
 	virtual void update(int elapsedTime);
 	virtual void draw(Graphics& graphics);
 
-	virtual ~Tile();
+	virtual ~Tile() = default;
 
 protected:
 	Vector2 _position;

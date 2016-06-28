@@ -46,7 +46,7 @@ void Game::gameLoop()
 	this->initText();
 
 	// Play music from the start
-	Audio::playMusic("maintheme", -1);
+	// Audio::playMusic("maintheme", -1);
 
 	auto LAST_UPDATE_TIME = SDL_GetTicks();
 	this->_running = true;
@@ -71,6 +71,7 @@ void Game::gameLoop()
 		this->draw();
 
 	}
+
 
 }
 
@@ -171,16 +172,18 @@ void Game::input()
 
 void Game::draw()
 {
-	// Handle player death by letting the player restart or close the game
-	if (this->_player.isPlayerDead() == true) {
-		this->_gameTexts["DeathRestart"].draw(this->_graphics, this->_player.getX(), this->_player.getY());
-	}
-
-
 	this->_graphics.clear();
+
 	this->_level.draw(this->_graphics);
 	this->_player.draw(this->_graphics);
 	this->_hud.draw(this->_graphics);
+
+	if (this->_player.isPlayerDead() == true) {
+		this->_gameTexts["DeathRestart"].draw(this->_graphics);
+	}
+
+
+
 
 #ifdef DEBUG
 	this->drawDebugLines();
@@ -194,8 +197,11 @@ void Game::update(int elapsedTime)
 {
 	// Check for player death
 	if (this->_player.isPlayerDead() == true) {
+		this->_player.stopMoving();						// dx/dy = 0
 		this->_player.playAnimation("TombstoneIdle");	// tombstone as death animation
 		this->_player.changeWeapon("none");				// so tombstone doesn't show weapon at its side
+
+		this->_gameTexts["DeathRestart"].update();
 	}
 
 
@@ -275,7 +281,7 @@ void Game::restart()
 	// Restart the level
 	// TODO: CLEANUP RESSOURCES CREATED IN THESE OBJECTS
 	this->_level = Level("bigmap1", this->_graphics);
-	this->_player = Player(this->_graphics, this->_level.getPlayerSpawnPoint());
+	//this->_player = Player(this->_graphics, this->_level.getPlayerSpawnPoint());
 }
 
 void Game::initText()
@@ -283,7 +289,7 @@ void Game::initText()
 	// Store text objects for the game object in a map for easier and cleaner access when the texts are needed
 	this->_gameTexts.insert({
 		"DeathRestart",
-		Text(this->_graphics, "You died. Restart? (Y/N)", Vector2(0, 0), 28, 0, 0, text::fontDir, text::green)
+		Text(this->_graphics, "You died. Restart? (Y/N)", Vector2(-200, -100), 20, 0, 0, text::fontDir, text::green)
 	});
 }
 

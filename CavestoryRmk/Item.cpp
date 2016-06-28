@@ -40,7 +40,6 @@ Weapon::Weapon(int ID, std::string itemDescription, Rectangle collRect, WeaponPr
 
 }
 
-
 Consumable::Consumable()
 {
 

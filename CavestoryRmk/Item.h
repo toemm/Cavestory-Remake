@@ -56,6 +56,7 @@ public:
 	Weapon(int ID, std::string itemDescription, Rectangle collRect, WeaponProperty weaponProperty,
 		Graphics& graphics, std::string filePath, int sourceX, int sourceY, int width, int height,
 		float posX, float posY, float timeToUpdate);
+	virtual ~Weapon() = default;
 
 	// pure virtual functs
 	virtual void fire(Direction direction, bool isLookingUp, bool isLookingDown) = 0;

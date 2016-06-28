@@ -103,7 +103,6 @@ private:
 	bool _playerDead;
 
 	// Items
-	Weapon *_testWeapon;
 	std::map<std::string, std::shared_ptr<Weapon>> _arsenal;
 	std::string _currentWeaponHeld;
 

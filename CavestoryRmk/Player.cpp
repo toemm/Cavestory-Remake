@@ -32,7 +32,7 @@ _playerDead(false)
 	this->_currentAnimation = "IdleLeft";	// If the level is restarted, player starts with this animation so it doesn't NULL, maybe better solution?
 	this->setupAnimation();
 
-	// Instantiate default weapon 
+	// Instantiate default weapon ("unarmed" -> fist weapon)
 	this->_arsenal.insert({ "none", nullptr });			// No weapon held
 
 }

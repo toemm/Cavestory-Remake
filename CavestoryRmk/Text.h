@@ -30,9 +30,9 @@ public:
 	~Text();
 
 	void update();
-	void draw(Graphics& graphics, int x, int y);
+	void draw(Graphics& graphics);
 
-	const inline TextData getTextData() const { return this->_textdata; }
+	const inline TextData& getTextData() const { return this->_textdata; }
 	const inline int getX() const { return this->_x; }
 	const inline int getY() const { return this->_y; }
 

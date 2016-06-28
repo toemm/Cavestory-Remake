@@ -39,8 +39,6 @@ private:
 	// Draw rectangles around sprites for debugging purposes
 	void drawDebugLines();
 
-	Text _text;
-
 	Audio _audio;
 	SDL_Event _sdlevent;
 	Input _input;

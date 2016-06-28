@@ -136,6 +136,7 @@ void Level::loadMap(std::string mapName, Graphics& graphics)
 	XMLDocument doc;
 	std::stringstream ss;
 
+
 	ss << "content/maps/" << mapName << ".tmx";
 	doc.LoadFile(ss.str().c_str());
 
@@ -591,6 +592,3 @@ Vector2 Level::getTilesetPosition(Tileset& tls, int gid, int tileWidth, int tile
 }
 
 
-Level::~Level()
-{
-}

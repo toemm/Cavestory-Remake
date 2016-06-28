@@ -42,7 +42,9 @@ Graphics::~Graphics()
 	for (const auto& pair : this->_spriteSheets) {
 		SDL_FreeSurface(pair.second);
 	}
-
+	/*for (const auto& pair : this->_textLibrary) {
+		SDL_FreeSurface(pair.second);
+	}*/
 }
 
 SDL_Surface *Graphics::loadImage(const std::string& filePath)
@@ -62,6 +64,7 @@ SDL_Surface *Graphics::loadText(const TextData& data)
 			data.text.c_str(), 
 			data.color);
 	}
+	//printf("%i\n", _textLibrary.size());
 	return this->_textLibrary[data];
 
 }
@@ -69,7 +72,7 @@ SDL_Surface *Graphics::loadText(const TextData& data)
 TTF_Font *Graphics::loadFont(const std::string& filePath, int height)
 {
 	if (this->_fontLibrary.count(filePath) == 0) {
-		this->_fontLibrary[filePath] = TTF_OpenFont(filePath.c_str(), height);
+		this->_fontLibrary[filePath] = TTF_OpenFont(filePath.c_str(), height);		// TODO: fix fontsLibrary to work with different sizes
 	}
 	//printf("%i\n", _spriteSheets.size());
 	return this->_fontLibrary[filePath];

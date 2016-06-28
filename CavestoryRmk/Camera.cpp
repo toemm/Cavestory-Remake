@@ -43,3 +43,10 @@ void Camera::update(int elapsedTime, Player& player)
 	this->cameraRect.y = camY;
 
 }
+
+Vector2 Camera::getCenter()
+{
+	return Vector2(
+		Camera::cameraRect.x + globals::SCREEN_WIDTH / 2,
+		Camera::cameraRect.y + globals::SCREEN_HEIGHT / 2);
+}

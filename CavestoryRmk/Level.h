@@ -43,7 +43,8 @@ public:
 	
 	
 	Level& operator= (const Level& other) = default;	// assignment operator is needed but default is OK
-	~Level();
+
+	~Level(void) = default;
 
 private:
 	std::string _mapName;
@@ -51,8 +52,6 @@ private:
 	
 	Vector2 _size;			// Size of the map (number tiles width, numbers tiles height)
 	Vector2 _tileSize;
-
-	SDL_Texture *_backgroundTexture;
 
 	std::vector<Tile> _tileList;
 	std::vector<Tileset> _tilesets;
@@ -89,5 +88,9 @@ struct Tileset {
 		this->Texture = texture;
 		this->FirstGid = FirstGid;
 	}
+
+	~Tileset() = default;
+	
+
 };
 
