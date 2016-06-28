@@ -162,6 +162,7 @@ void Level::loadMap(std::string mapName, Graphics& graphics)
 
 			const char *source = pTileset->FirstChildElement("image")->Attribute("source");
 
+			// form the correct link to the content folder
 			std::string src(source);
 			src.erase(0, 2);
 			src.insert(0, "content");
@@ -222,6 +223,14 @@ void Level::loadMap(std::string mapName, Graphics& graphics)
 					XMLElement *pTile = pData->FirstChildElement("tile");
 					if (pTile != NULL) {
 						int tileCounter = 0;
+						AnimatedTileInfo ati;
+						Tileset tls;
+						int xx, yy;
+						Vector2 finalTilePosition;
+						Vector2 finalTilesetPosition;
+						bool isAnimatedTile;
+
+
 						while (pTile) {
 							// Build each individual tile here
 							// IF Gid = 0, no tile to be drawn
@@ -238,7 +247,6 @@ void Level::loadMap(std::string mapName, Graphics& graphics)
 
 							// Get the tileset for this specific gid
 							int gid = pTile->IntAttribute("gid");
-							Tileset tls;
 
 							for (int i = 0; i < this->_tilesets.size(); i++) {
 								if (this->_tilesets[i].FirstGid <= gid) {
@@ -263,14 +271,14 @@ void Level::loadMap(std::string mapName, Graphics& graphics)
 							}
 
 							// Get the position of the tile in the level
-							int xx = (tileCounter % width) * tileWidth;		// destX
-							int yy = (tileCounter / width) * tileHeight;	// destY
-							Vector2 finalTilePosition = Vector2(xx, yy);	// (x, y) in destImage
+							xx = (tileCounter % width) * tileWidth;		// destX
+							yy = (tileCounter / width) * tileHeight;	// destY
+							finalTilePosition = Vector2(xx, yy);	// (x, y) in destImage
 
 							//Calculate the position of the tile in the tileset
-							Vector2 finalTilesetPosition = this->getTilesetPosition(tls, gid, tileWidth, tileHeight);
-							bool isAnimatedTile = false;
-							AnimatedTileInfo ati;
+							finalTilesetPosition = this->getTilesetPosition(tls, gid, tileWidth, tileHeight);
+							isAnimatedTile = false;
+							
 
 							for (int i = 0; i < _animatedTileInfo.size(); i++) {
 								if (this->_animatedTileInfo.at(i).StartTileId == gid) {

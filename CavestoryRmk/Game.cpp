@@ -281,7 +281,7 @@ void Game::restart()
 	// Restart the level
 	// TODO: CLEANUP RESSOURCES CREATED IN THESE OBJECTS
 	this->_level = Level("bigmap1", this->_graphics);
-	//this->_player = Player(this->_graphics, this->_level.getPlayerSpawnPoint());
+	this->_player = Player(this->_graphics, this->_level.getPlayerSpawnPoint());
 }
 
 void Game::initText()
