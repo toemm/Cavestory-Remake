@@ -11,7 +11,6 @@ Vector2(5, 18),					// Offset Vector to place it over player hands, only works f
 graphics, "content/sprites/Bullet.png", 0, 0, 17, 10, 0, 0, 100)
 {
 	this->setCaret(new PistolCaret(graphics));
-	printf("CTOR PistolBullet\n");
 	this->setupAnimation();
 	this->setVisible(false);
 	this->_boundingBox.setCollision(false);
