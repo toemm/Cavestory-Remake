@@ -40,29 +40,30 @@ Graphics::~Graphics()
 
 	// Free the surfaces that have been created
 	for (const auto& pair : this->_spriteSheets) {
-		SDL_FreeSurface(pair.second);
+		SDL_DestroyTexture(pair.second);
 	}
-	/*for (const auto& pair : this->_textLibrary) {
-		SDL_FreeSurface(pair.second);
-	}*/
+	for (const auto& pair : this->_textLibrary) {
+		SDL_DestroyTexture(pair.second);
+	}
 }
 
-SDL_Surface *Graphics::loadImage(const std::string& filePath)
+SDL_Texture *Graphics::loadImage(const std::string& filePath)
 {
 	if (this->_spriteSheets.count(filePath) == 0) {
-		this->_spriteSheets[filePath] = IMG_Load(filePath.c_str());
+		SDL_Surface *surf = IMG_Load(filePath.c_str());
+		this->_spriteSheets[filePath] = SDL_CreateTextureFromSurface(this->getRenderer(), surf);
+		SDL_FreeSurface(surf);
 	}
 	//printf("%i\n", _spriteSheets.size());
 	return this->_spriteSheets[filePath];
 }
 
-SDL_Surface *Graphics::loadText(const TextData& data)
+SDL_Texture *Graphics::loadText(const TextData& data)
 {
 	if (this->_textLibrary.count(data) == 0) {
-		this->_textLibrary[data] = TTF_RenderText_Solid(
-			data.font, 
-			data.text.c_str(), 
-			data.color);
+		SDL_Surface *surf = TTF_RenderText_Solid(data.font, data.text.c_str(), data.color);
+		this->_textLibrary[data] = SDL_CreateTextureFromSurface(this->getRenderer(), surf);
+		SDL_FreeSurface(surf);
 	}
 	//printf("%i\n", _textLibrary.size());
 	return this->_textLibrary[data];

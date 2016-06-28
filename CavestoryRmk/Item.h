@@ -24,13 +24,14 @@ public:
 	const Rectangle inline getCollRect() const { return this->_collRect; }
 	const long inline getId() const { return this->_ID; }
 	const std::string inline getItemDescription() const { return this->_itemDescription; }
+	const std::string inline getItemName() const { return this->_itemName; }
 
 protected:
 	int _ID;
 
 private:
 
-	
+	std::string _itemName;
 	std::string _itemDescription;
 	Rectangle _collRect;
 };

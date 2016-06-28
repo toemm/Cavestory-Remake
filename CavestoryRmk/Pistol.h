@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Item.h"
+#include "PistolBullet.h"
 
 class Pistol :
 	public Weapon
@@ -19,8 +20,6 @@ public:
 	// virtual functs
 	virtual void update(int elapsedTime) override;
 	virtual void draw(Graphics& graphics, int x, int y) override;
-
-
 
 private:
 

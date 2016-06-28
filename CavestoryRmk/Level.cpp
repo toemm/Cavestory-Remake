@@ -168,10 +168,10 @@ void Level::loadMap(std::string mapName, Graphics& graphics)
 			src.insert(0, "content");
 
 			pTileset->QueryIntAttribute("firstgid", &firstgid);
-			SDL_Texture *tex = SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(src));
+			SDL_Texture *tex = graphics.loadImage(src);
 			this->_tilesets.push_back(Tileset(tex, firstgid));
 
-			// Parse out animation for that tileset
+			//Parse out animation for that tileset
 			XMLElement *ptileA = pTileset->FirstChildElement("tile");
 			if (ptileA != NULL) {
 				while (ptileA) {
@@ -229,7 +229,6 @@ void Level::loadMap(std::string mapName, Graphics& graphics)
 						Vector2 finalTilePosition;
 						Vector2 finalTilesetPosition;
 						bool isAnimatedTile;
-
 
 						while (pTile) {
 							// Build each individual tile here
@@ -551,7 +550,7 @@ void Level::loadMap(std::string mapName, Graphics& graphics)
 							printf("Pistol added\n");
 						}
 						else if (itemname == "healthpack") {
-							item = std::make_shared<Healthpack>(id, ItemDescriptions["healthpack"], rect);
+							item = std::make_shared<Healthpack>(id, ItemDescriptions["healthpack"], rect);			
 							this->_items.push_back(item);
 							printf("Healthpack added\n");
 						}

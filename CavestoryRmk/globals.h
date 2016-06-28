@@ -95,8 +95,6 @@ struct Vector2 {
 	static Vector2 zero() {
 		return Vector2();
 	}
-
-	~Vector2() {}
 };
 
 

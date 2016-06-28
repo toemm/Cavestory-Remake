@@ -199,9 +199,9 @@ void Game::update(int elapsedTime)
 	if (this->_player.isPlayerDead() == true) {
 		this->_player.stopMoving();						// dx/dy = 0
 		this->_player.playAnimation("TombstoneIdle");	// tombstone as death animation
-		this->_player.changeWeapon("none");				// so tombstone doesn't show weapon at its side
+		this->_player.changeWeapon("none");				// so tombstone doesn't show weapon sprite at its side
 
-		this->_gameTexts["DeathRestart"].update();
+		this->_gameTexts["DeathRestart"].update();		// For the future
 	}
 
 

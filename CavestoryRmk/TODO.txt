@@ -1,13 +1,14 @@
 Systems:
 
 1. When creating Item objects in Level.cpp loadmap(), get the WeaponProperty object for the Weapon via a global map
-2. (DONE) In level.cpp when parsing Item, fix the constructors so that they only take what is necessary and add rest in Pistol.cpp, Healthpack.cpp
-3. Ressources cleanup, check if every new is followed by delete (Level class dtor..), restart() method, clean up Player and Level class!!
+(DONE) 2. In level.cpp when parsing Item, fix the constructors so that they only take what is necessary and add rest in Pistol.cpp, Healthpack.cpp
+(DONE) 3. Ressources cleanup, check if every new is followed by delete (Level class dtor..), restart() method, clean up Player and Level class!!
 4. Bullet CTOR remove hitbox offset (hardcode in update function instead)
 5. Bats smaller hitbox
 6. Caret align wallhit at bot wall (PistolCaretUpRIGHT, PistolCaretUpLEFT)
 7. Handle death animation of enemies (remove from items vector, clean up properly)
 8. Create sound strings like "pistolShoot" instead of using the standard item description
+9. Make the textLibrary in graphics work for different font sizes
 
 Gameplay/Design:
 
@@ -25,8 +26,7 @@ Setup:
 
 
 
-WHAT TO DO BETTER:
+FOR THE FUTURE:
 
-- Animated Sprite -> Weapon -> Bullet(AnimatedSprite), Caret(AnimatedSprite)
-->  one Weapon class 
+- Rewrite Weapons, Bullets, Carets classes
 

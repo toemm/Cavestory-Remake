@@ -24,8 +24,8 @@ public:
 	 * As as result, each image will only ever be loaded once
 	 * Returns the image from the map regardless of whether or not it was just loaded
 	 */
-	SDL_Surface *loadImage(const std::string& filePath);
-	SDL_Surface *loadText(const TextData& data);
+	SDL_Texture *loadImage(const std::string& filePath);
+	SDL_Texture *loadText(const TextData& data);
 	TTF_Font *loadFont(const std::string& filePath, int height);
 
 	/* void blitSurface
@@ -52,7 +52,7 @@ private:
 	SDL_Window *_window;
 	SDL_Renderer *_renderer;
 
-	std::map<std::string, SDL_Surface *> _spriteSheets;
-	std::map<TextData, SDL_Surface *> _textLibrary;
+	std::map<std::string, SDL_Texture *> _spriteSheets;
+	std::map<TextData, SDL_Texture *> _textLibrary;
 	std::map<std::string, TTF_Font *> _fontLibrary;
 };

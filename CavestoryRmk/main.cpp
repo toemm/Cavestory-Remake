@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 
 	Game game;
 
-	//_CrtDumpMemoryLeaks();
+	_CrtDumpMemoryLeaks();
 
 
 	return 0;
