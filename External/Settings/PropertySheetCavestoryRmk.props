@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IncludePath>$(ProjectDir)..\External\Libs\Box2D-2.3.0_built;$(ProjectDir)..\External\Libs\SDL2_ttf-2.0.14\include;$(ProjectDir)..\External\Libs\SDL2_image-2.0.1\include;$(ProjectDir)..\External\Libs\SDL2_mixer-2.0.1\include;$(ProjectDir)..\External\Libs\SDL2-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\External\Libs\Box2D-2.3.0_built\lib;$(ProjectDir)..\External\Libs\SDL2_ttf-2.0.14\lib\x86;$(ProjectDir)..\External\Libs\SDL2_mixer-2.0.1\lib\x86;$(ProjectDir)..\External\Libs\SDL2_image-2.0.1\lib\x86;$(ProjectDir)..\External\Libs\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>_TEST;_BLA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d  "$(ProjectDir)..\External\DLLs\*.dll" "$(ProjectDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
