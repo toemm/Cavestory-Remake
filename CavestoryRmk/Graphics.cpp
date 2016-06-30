@@ -8,6 +8,7 @@
 
 Graphics::Graphics()
 {
+	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_CreateWindowAndRenderer(globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS, &this->_window, &this->_renderer);
 	SDL_SetWindowTitle(this->_window, "Cavestory Remake");
 

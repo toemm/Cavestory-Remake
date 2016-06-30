@@ -25,7 +25,6 @@ namespace FPS {
 
 Game::Game()
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
 	this->gameLoop();
 }
 
@@ -36,9 +35,6 @@ Game::~Game()
 
 void Game::gameLoop()
 {
-	Graphics graphics;
-
-	this->_graphics = graphics;						// assignment-op copies important pointers
 	this->_level = Level("bigmap1", _graphics);		// assignment-op, creates copy, careful with pointers
 	this->_player = Player(_graphics, _level.getPlayerSpawnPoint());
 	this->_hud = Hud(_graphics);
