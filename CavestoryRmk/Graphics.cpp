@@ -45,6 +45,9 @@ Graphics::~Graphics()
 	for (const auto& pair : this->_textLibrary) {
 		SDL_DestroyTexture(pair.second);
 	}
+
+	TTF_Quit();
+	IMG_Quit();
 }
 
 SDL_Texture *Graphics::loadImage(const std::string& filePath)
