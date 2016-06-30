@@ -543,6 +543,7 @@ void Level::loadMap(std::string mapName, Graphics& graphics)
 							// Add the weapon to the level's item vector
 							item = std::make_shared<Pistol>(id, rect, graphics);
 
+
 							// Add the default ammunition to the weapon
 							std::dynamic_pointer_cast<Weapon>(item)->addAmmunition(new PistolBullet(graphics));
 			
