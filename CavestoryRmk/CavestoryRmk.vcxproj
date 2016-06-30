@@ -33,14 +33,16 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\Libs\PropertySheetCavestoryRmk.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\Libs\PropertySheetCavestoryRmk.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)..\External\Libs\SDL2_mixer-2.0.1\include;$(ProjectDir)..\External\Libs\SDL2-2.0.4\include;$(ProjectDir)..\External\Libs\SDL2_ttf-2.0.14\include;$(ProjectDir)..\External\Libs\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\External\Libs\SDL2_ttf-2.0.14\lib\x86;$(ProjectDir)..\External\Libs\SDL2_image-2.0.1\lib\x86;$(ProjectDir)..\External\Libs\SDL2_mixer-2.0.1\lib\x86;$(ProjectDir)..\External\Libs\SDL2-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\External\Libs\Box2D-2.3.0_built;$(ProjectDir)..\External\Libs\SDL2_mixer-2.0.1\include;$(ProjectDir)..\External\Libs\SDL2-2.0.4\include;$(ProjectDir)..\External\Libs\SDL2_ttf-2.0.14\include;$(ProjectDir)..\External\Libs\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\External\Libs\Box2D-2.3.0_built\lib;$(ProjectDir)..\External\Libs\SDL2-2.0.4\lib\x86;$(ProjectDir)..\External\Libs\SDL2_image-2.0.1\lib\x86;$(ProjectDir)..\External\Libs\SDL2_mixer-2.0.1\lib\x86;$(ProjectDir)..\External\Libs\SDL2_ttf-2.0.14\lib\x86;$(LibraryPath)</LibraryPath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
@@ -50,10 +52,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>

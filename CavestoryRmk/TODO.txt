@@ -9,6 +9,9 @@ Systems:
 7. Handle death animation of enemies (remove from items vector, clean up properly)
 8. Create sound strings like "pistolShoot" instead of using the standard item description
 9. Make the textLibrary in graphics work for different font sizes
+10. Implement collision between weapon powerups (triangles) and the world with Box2D
+	- Concepts roughly: - Level holds b2World, tmx parsed Rects are used to create b2Bodies
+						- "Loot class" 
 
 Gameplay/Design:
 
@@ -18,6 +21,11 @@ Setup:
 
 (DONE) 1. Keep the external dependencies in source control (http://stackoverflow.com/questions/13433416/trying-to-install-sdl-ttf-in-visual-studio-express-2012-for-windows-desktop)
 (DONE) 2. Use relative path for dependencies
+3. Use CMake to target more platforms
+4. Create a DebugDrawer class which implements methods to draw simple shapes (rects, etc)
+	-Wrap SDL_RenderDrawRect etc
+	-DrawString(char *, format args ...) via vsprintf, draw debug string at (x,y) coordinates
+5. OpenGL + SDL2
 
 
 
